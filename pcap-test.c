@@ -86,32 +86,32 @@ int main(int argc, char* argv[]) {
 		struct ether_h *ehead = packet;
 		if(ntohs(ehead->type)!= 0x0800) continue;
 		struct ipv4_h *iphead = packet+sizeof(struct ether_h);
-		if(ntohs(iphead->ip_p)!= 6) continue;
-		struct libnet_tcp_hdr *tcphead = packet + sizeof(struct ether_h)  + iphead-> ip_len;
-		u_int8_t *src_mac = ehaed -> from;
+		if(iphead->ip_p!= 6) continue;
+		struct libnet_tcp_hdr *tcphead = packet + sizeof(struct ether_h)  + ((iphead-> ip_hl)*4);
+		u_int8_t *src_mac = ehead -> from;
 		u_int8_t *dst_mac = ehead -> to;
 		u_int8_t *src_ip = iphead -> ip_src;
 		u_int8_t *dst_ip = iphead -> ip_dst;
 		u_int16_t src_tcp = tcphead -> th_sport;
 		u_int16_t dst_tcp = tcphead -> th_dport;
-		u_int8_t tcp_len = (tcphead -> th_off)*4;
-		u_int8_t *packetdata = packet + sizeof(struct ether_h)  + iphead-> ip_hl;
+		u_int8_t tcp_len = ntohs(iphead ->ip_len) - ((iphead-> ip_hl)*4) - ((tcphead ->th_off)*4);
+		u_int8_t *packetdata = packet + sizeof(struct ether_h)  + ((iphead-> ip_hl)*4) + ((tcphead ->th_off)*4);
 		printf("src mac : %02x:%02x:%02x:%02x:%02x:%02x\n",src_mac[0],src_mac[1],src_mac[2],src_mac[3],src_mac[4],src_mac[5]);
 		printf("dst mac : %02x:%02x:%02x:%02x:%02x:%02x\n",dst_mac[0],dst_mac[1],dst_mac[2],dst_mac[3],dst_mac[4],dst_mac[5]);
 		printf("src ip : %d.%d.%d.%d\n",src_ip[0],src_ip[1],src_ip[2],src_ip[3]);
                 printf("dst ip : %d.%d.%d.%d\n",dst_ip[0],dst_ip[1],dst_ip[2],dst_ip[3]);
 		printf("src tcp : %d\n",ntohs(src_tcp));
                 printf("dst tcp : %d\n",ntohs(dst_tcp));
-		if(tcplen==20)continue;
-		if(tcplen>=30){
+		if(tcp_len==0)continue;
+		if(tcp_len>=10){
 			printf("Data : ");
 			for(int i=0; i<10;i++){
 				printf("%02x",packetdata[i]);
 			}
 		}
 		else{
-			print("Data : ");
-			for(int i=0; i<tcplen-20;i++){
+			printf("Data : ");
+			for(int i=0; i<tcp_len;i++){
                                 printf("%02x",packetdata[i]);
                         }
 
