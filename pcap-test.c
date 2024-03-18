@@ -104,13 +104,13 @@ int main(int argc, char* argv[]) {
                 printf("dst tcp : %d\n",ntohs(dst_tcp));
 		if(tcplen==20)continue;
 		if(tcplen>=30){
-			printf("Data");
+			printf("Data : ");
 			for(int i=0; i<10;i++){
 				printf("%02x",packetdata[i]);
 			}
 		}
 		else{
-			print("Data");
+			print("Data : ");
 			for(int i=0; i<tcplen-20;i++){
                                 printf("%02x",packetdata[i]);
                         }
