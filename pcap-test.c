@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 		if(ntohs(iphead->ip_p)!= 6) continue;
 		struct libnet_tcp_hdr *tcphead = packet + sizeof(struct ether_h)  + iphead-> ip_len;
 		u_int8_t *src_mac = ehaed -> from;
-		u_int8_t *dst_mac = ehaed -> to;
+		u_int8_t *dst_mac = ehead -> to;
 		u_int8_t *src_ip = iphead -> ip_src;
 		u_int8_t *dst_ip = iphead -> ip_dst;
 		u_int16_t src_tcp = tcpheader -> th_sport;
