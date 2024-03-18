@@ -92,9 +92,9 @@ int main(int argc, char* argv[]) {
 		u_int8_t *dst_mac = ehead -> to;
 		u_int8_t *src_ip = iphead -> ip_src;
 		u_int8_t *dst_ip = iphead -> ip_dst;
-		u_int16_t src_tcp = tcpheader -> th_sport;
-		u_int16_t dst_tcp = tcpheader -> th_dport;
-		u_int8_t tcp_len = (tcpheader -> th_off)*4;
+		u_int16_t src_tcp = tcphead -> th_sport;
+		u_int16_t dst_tcp = tcphead -> th_dport;
+		u_int8_t tcp_len = (tcphead -> th_off)*4;
 		u_int8_t *packetdata = packet + sizeof(struct ether_h)  + iphead-> ip_hl;
 		printf("src mac : %02x:%02x:%02x:%02x:%02x:%02x\n",src_mac[0],src_mac[1],src_mac[2],src_mac[3],src_mac[4],src_mac[5]);
 		printf("dst mac : %02x:%02x:%02x:%02x:%02x:%02x\n",dst_mac[0],dst_mac[1],dst_mac[2],dst_mac[3],dst_mac[4],dst_mac[5]);
