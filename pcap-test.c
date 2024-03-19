@@ -160,8 +160,8 @@ int main(int argc, char* argv[]) {
 		printf("dst mac : %02x:%02x:%02x:%02x:%02x:%02x\n",dst_mac[0],dst_mac[1],dst_mac[2],dst_mac[3],dst_mac[4],dst_mac[5]);
 		printf("src ip : %d.%d.%d.%d\n",src_ip[0],src_ip[1],src_ip[2],src_ip[3]);
                 printf("dst ip : %d.%d.%d.%d\n",dst_ip[0],dst_ip[1],dst_ip[2],dst_ip[3]);
-		printf("src tcp : %d\n",ntohs(src_tcp));
-                printf("dst tcp : %d\n",ntohs(dst_tcp));
+		printf("src tcp : %d\n",ntohl(src_tcp));
+                printf("dst tcp : %d\n",ntohl(dst_tcp));
 		if(t_len==0)continue;
 		if(t_len>=10){
 			printf("Data : ");
