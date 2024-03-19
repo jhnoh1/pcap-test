@@ -22,7 +22,8 @@ struct ether_h{
 	u_int16_t type;
 };
 
-struct ipv4_h#if (LIBNET_LIL_ENDIAN)
+struct ipv4_h{
+#if (LIBNET_LIL_ENDIAN)
     u_int8_t ip_hl:4,      /* header length */
            ip_v:4;         /* version */
 #endif
