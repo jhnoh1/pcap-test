@@ -83,11 +83,11 @@ int main(int argc, char* argv[]) {
 		}
 		printf("%u bytes captured\n", header->caplen);
 
-		struct ether_h *ehead = packet;
+		struct ether_h *ehead = pcap_pkthdr*(packet);
 		if(ntohs(ehead->type)!= 0x0800) continue;
-		struct ipv4_h *iphead = packet+sizeof(struct ether_h);
+		struct ipv4_h *iphead = ipv4_h*(ehead)+sizeof(struct ether_h);
 		if(iphead->ip_p!= 6) continue;
-		struct libnet_tcp_hdr *tcphead = packet + sizeof(struct ether_h)  + ((iphead-> ip_hl)*4);
+		struct libnet_tcp_hdr *tcphead = ipv4_h*(iphead)  + ((iphead-> ip_hl)*4);
 		u_int8_t *src_mac = ehead -> from;
 		u_int8_t *dst_mac = ehead -> to;
 		u_int8_t *src_ip = iphead -> ip_src;
